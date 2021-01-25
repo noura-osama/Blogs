@@ -4,16 +4,9 @@ const mongoose = require('mongoose');
 const routes = require('./routes');
 const app = express();
 
-const url =
-  "mongodb+srv://nouraosama:dwni686737@cluster0.lz0az.mongodb.net/NodeUsersBlogs?retryWrites=true&w=majority";
-mongoose
-  .connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-  })
-  .then(() => console.log("Database Connected Successfully"))
-  .catch((err) => console.log(err));
+const { MONGODB_URI } = process.env; 
+
+mongoose.connect(MONGODB_URI, { useUnifiedTopology: true });
 
 app.use(express.json());
 
