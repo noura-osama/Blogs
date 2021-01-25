@@ -3,13 +3,21 @@ const mongoose = require('mongoose');
 
 const routes = require('./routes');
 const app = express();
+const {home}=require('./controllers/blog');
 
 const { MONGODB_URI } = process.env; 
 
 mongoose.connect(MONGODB_URI, { useUnifiedTopology: true });
 
 app.use(express.json());
-
+//home page 
+app.get('/', async (req, res, next) => {
+  try {
+      const blog = await home();
+      res.json(blog);
+  } catch (e) { next(e) }
+  //res.send('Hello World')
+});
 app.use('/', routes);
 
 app.use('*', (req, res, next) => {
