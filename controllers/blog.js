@@ -36,12 +36,14 @@ const search = (ser) => {
 
 //edit my owen blog function
 const editById = (id, editid, body) => {
-    return Blog.updateOne({ $and: [{ _id: editid }, { author: id }] }, { $set: body  }).exec();
+    Blog.updateOne({ $and: [{ _id: editid }, { author: id }] }, { $set: body  }).exec();
+    return {"blog":"edited"}
 };
 
 //delete my owen blog function
 const deleteById = (id, delid) => {
-    return Blog.find({ $and: [{ _id: delid }, { author: id }] }).remove();
+    Blog.find({ $and: [{ _id: delid }, { author: id }] }).remove();
+    return {"blog":"deleted"}
 };
 
 module.exports = { home, create, getAll, getById, editById, deleteById, search }
