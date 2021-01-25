@@ -25,8 +25,8 @@ const getAll = (author) => {
 }
 
 //get all blogs for an author function
-const getById = (author) => {
-    return Blog.find({ author }).exec();
+const getById = (id) => {
+    return Blog.findById( id).exec();
 }
 
 //search by title and tags function
