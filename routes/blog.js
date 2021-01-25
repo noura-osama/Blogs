@@ -3,7 +3,16 @@ const router =express. Router();
 const multer=require('multer');
 const path=require('path');
 const authMiddleware = require('../middlewares/auth');
-const {home,create,getAll,getById,editById,deleteById,search}=require('../controllers/blog')
+const {home,create,getAll,getById,editById,deleteById,search}=require('../controllers/blog');
+
+//home page 
+router.get('/home', async (req, res, next) => {
+    try {
+        const blog = await home();
+        res.json(blog);
+    } catch (e) { next(e) }
+    //res.send('Hello World')
+});
 
 const storage=multer.diskStorage({destination:function(req,file,cb){
     cb(null,'images/');
@@ -34,15 +43,6 @@ router.get('/',authMiddleware, async (req, res,next)=> {
         res.json(blog);
     } catch(e){next(e)}
 })
-
-//home page 
-router.get('/home', async (req, res, next) => {
-    try {
-        const blog = await home();
-        res.json(blog);
-    } catch (e) { next(e) }
-    //res.send('Hello World')
-});
 
 //get all blogs for an author
 router.get('/:id',authMiddleware, async (req, res,next)=> {
